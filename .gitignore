@@ -1,0 +1,13 @@
+# Исходники со старого сайта — не для публичного репозитория
+assets/src/
+
+# Старые варианты первого экрана, на странице не используются
+assets/img/hero.jpg
+assets/img/hero-m.jpg
+assets/img/hero-day.jpg
+assets/img/hero-day-m.jpg
+
+# Служебное
+_debug.html
+Thumbs.db
+desktop.ini
