@@ -399,8 +399,13 @@
       const img = $('img', media);
       const cap = $('.reveal__caption', reveal);
       const uline = $('.u-line', cap);
+      const maskSize = { v: 46 };
       gsap.timeline({ scrollTrigger: { trigger: reveal, start: 'top bottom', end: 'bottom bottom', scrub: 0.6 } })
-        .fromTo(media, { '--m': '46vh' }, { '--m': '2400vh', ease: 'power3.in', duration: 1 }, 0)
+        // размер маски пишем прямо в mask-size: через CSS-переменную Safari маску не перерисовывает
+        .fromTo(maskSize, { v: 46 }, {
+          v: 2400, ease: 'power3.in', duration: 1,
+          onUpdate: () => { const s = 'auto ' + maskSize.v.toFixed(2) + 'vh'; media.style.webkitMaskSize = s; media.style.maskSize = s; },
+        }, 0)
         .fromTo(img, { scale: 1.4 }, { scale: 1, ease: 'power1.out', duration: 1 }, 0)
         .fromTo('.reveal__scrim', { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.66)
         .fromTo(cap, { yPercent: 30, opacity: 0 }, { yPercent: 0, opacity: 1, ease: 'power2.out', duration: 0.2 }, 0.7)

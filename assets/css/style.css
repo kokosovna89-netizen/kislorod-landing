@@ -44,7 +44,7 @@
   /* Движение */
   --ease-expo: cubic-bezier(.16, 1, .3, 1);
   --ease-out: cubic-bezier(.2, .8, .2, 1);
-  --spring: linear(0, .031, .109, .215, .333, .452, .566, .669, .758, .833, .894, .942, .978, 1.004, 1.021, 1.032, 1.037, 1.038, 1.037, 1.034, 1.03, 1.026, 1.021, 1.017, 1.013, 1.009, 1.006, 1.004, 1.002, 1.001, 1, .999, .999, .999, .999, .999, 1);
+  --spring: cubic-bezier(.34, 1.4, .64, 1);   /* запасной вариант: iOS < 17.2 не знает linear() */
   --t-fast: 300ms;
   --t-slow: 540ms;
 
@@ -58,6 +58,10 @@
 }
 @media (min-width: 768px) { :root { --gutter: 32px; --hdr-h: 72px; --sec: 112px; } }
 @media (min-width: 1280px) { :root { --gutter: 48px; --sec: 136px; --cut: 40px; } }
+
+@supports (transition-timing-function: linear(0, 1)) {
+  :root { --spring: linear(0, .031, .109, .215, .333, .452, .566, .669, .758, .833, .894, .942, .978, 1.004, 1.021, 1.032, 1.037, 1.038, 1.037, 1.034, 1.03, 1.026, 1.021, 1.017, 1.013, 1.009, 1.006, 1.004, 1.002, 1.001, 1, .999, .999, .999, .999, .999, 1); }
+}
 
 @property --l { syntax: "<length>"; inherits: false; initial-value: 0px; }
 @property --r2 { syntax: "<length>"; inherits: false; initial-value: 0px; }
@@ -378,10 +382,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .reveal__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: var(--paper); }
 .reveal__frame { position: absolute; inset: 0; overflow: hidden; background: var(--paper); transform-origin: 50% 50%; }
 .reveal__media {
-  --m: 46vh;
   position: absolute; inset: 0; background: var(--ink);
-  -webkit-mask: var(--sign) 50% 17% / auto var(--m) no-repeat;
-  mask: var(--sign) 50% 17% / auto var(--m) no-repeat;
+  /* размер маски меняет main.js напрямую (mask-size): Safari не перерисовывает маску при смене CSS-переменной */
+  -webkit-mask-image: var(--sign); mask-image: var(--sign);
+  -webkit-mask-position: 50% 17%; mask-position: 50% 17%;
+  -webkit-mask-size: auto 46vh; mask-size: auto 46vh;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
 }
 .reveal__media img { width: 100%; height: 100%; object-fit: cover; }
 .reveal__scrim { position: absolute; inset: 0; background: linear-gradient(0deg, rgb(10 10 9 / .72) 0%, rgb(10 10 9 / .1) 50%, rgb(10 10 9 / 0) 72%); opacity: 0; }
