@@ -2,7 +2,12 @@
 
 Каркас и анимации — по разбору «Город-парк» (`Сайт ЖК — шаблон по мотивам Город-парк/DESIGN-SYSTEM.md`), бренд — руководство Партикл из Figma.
 
-Превью: https://claude.ai/artifact/WuZuZaaAoZiGTXi9ZStDMr (приватное)
+Превью для клиента и телефонов (GitHub Pages): https://kokosovna89-netizen.github.io/kislorod-landing/
+Репозиторий: https://github.com/kokosovna89-netizen/kislorod-landing (публичный — только файлы сайта; `assets/src` и старые картинки исключены в `.gitignore`)
+Обновить превью: закоммитить правки и `git push` — сайт обновится через 1–2 минуты. После правок CSS/JS поднять `?v=` в index.html.
+Перед запуском на боевом домене: убрать `<meta name="robots" content="noindex, nofollow">` и отключить копию на GitHub Pages.
+
+Рабочее превью в Claude: https://claude.ai/artifact/WuZuZaaAoZiGTXi9ZStDMr (приватное)
 
 ## Состав
 - `index.html` — страница целиком (боевая версия, с подключением Marquiz)
