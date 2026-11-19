@@ -187,7 +187,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 .hdr.is-solid { background: var(--paper); box-shadow: 0 1px 0 var(--line); }
 .hdr.is-hidden { transform: translateY(-100%); }
-.hdr.menu-open { background: var(--paper); transform: none; box-shadow: none; }
 .hdr__in {
   position: relative;
   display: flex; align-items: center; gap: 16px;
@@ -200,37 +199,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .hdr__chip { display: none; padding: 7px 14px; border: 1px solid currentColor; border-radius: 999px; font-size: 13px; opacity: .85; }
 .hdr__tel { display: none; align-items: center; gap: 8px; font-weight: 500; font-size: 15px; }
 .hdr__cta { display: none; min-height: 44px; padding: 0 20px; font-size: 14px; }
-.burger { position: relative; width: 44px; height: 44px; flex: none; }
-.burger span { position: absolute; left: 11px; right: 11px; height: 1.6px; background: currentColor; transition: transform .45s var(--ease-expo), top .45s var(--ease-expo); }
-.burger span:first-child { top: 17px; }
-.burger span:last-child { top: 25px; }
-.burger[aria-expanded="true"] span:first-child { top: 21px; transform: rotate(45deg); }
-.burger[aria-expanded="true"] span:last-child { top: 21px; transform: rotate(-45deg); }
 @media (min-width: 768px) { .hdr__tel { display: inline-flex; } .hdr__cta { display: inline-flex; } }
 @media (min-width: 1100px) { .hdr__chip { display: inline-block; } }
 .hdr__in > * { animation: ks-drop .8s var(--ease-expo) .3s backwards; }
-
-/* Меню */
-.menu {
-  position: fixed; inset: 0; z-index: 45;
-  display: flex; flex-direction: column; justify-content: space-between;
-  padding: calc(var(--hdr-h) + env(safe-area-inset-top, 0px) + 24px) max(var(--gutter), env(safe-area-inset-right, 0px)) calc(32px + env(safe-area-inset-bottom, 0px)) max(var(--gutter), env(safe-area-inset-left, 0px));
-  background: var(--paper) var(--pattern-dark); color: var(--ink);
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path .7s var(--ease-expo);
-}
-.menu.is-open { clip-path: inset(0); }
-.menu__list { display: grid; gap: 4px; }
-.menu__list a {
-  display: inline-block; padding: 6px 0;
-  font: 300 clamp(32px, 6vw, 56px)/1.1 var(--f-display); letter-spacing: -.02em;
-  transform: translateY(40px); opacity: 0;
-  transition: transform .7s var(--ease-expo), opacity .5s;
-  transition-delay: calc(var(--i, 0) * 50ms + 120ms);
-}
-.menu.is-open .menu__list a { transform: none; opacity: 1; }
-.menu__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
-.menu__tel { font-size: 20px; font-weight: 500; }
 
 /* =====================================================================
    1. ПЕРВЫЙ ЭКРАН
@@ -351,17 +322,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (max-width: 899px) {
   .hero__btns .btn { font-size: 15px; padding: 0 14px; }
 }
-
-/* =====================================================================
-   2. ЦИФРЫ
-   ===================================================================== */
-.strip { padding-block: 32px 8px; }
-.strip__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.stat { display: grid; gap: 6px; align-content: start; padding: 22px 0 22px 16px; border-left: 1px solid var(--line); }
-.stat b { font: 300 clamp(40px, 3.6vw + 10px, 72px)/1 var(--f-display); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
-.stat > span { font-size: 14px; color: var(--ink-soft); max-width: 18ch; }
-@media (min-width: 900px) { .strip { padding-block: 56px 16px; } .strip__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .stat { padding-left: 24px; } }
-
 /* =====================================================================
    3. О КВАРТАЛЕ — двор раскрывается через знак
    ===================================================================== */

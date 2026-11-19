@@ -32,7 +32,6 @@
     goal('quiz_open', { from: a.textContent.trim() });
     if (window.Marquiz && typeof window.Marquiz.showModal === 'function' && cfg.quizId) {
       e.preventDefault();
-      if (menu.classList.contains('is-open')) toggleMenu(false);
       window.Marquiz.showModal(cfg.quizId);
     }
   });
@@ -53,10 +52,6 @@
     };
     document.head.appendChild(s);
   }
-  const lockScroll = (on) => {
-    if (lenis) on ? lenis.stop() : lenis.start();
-    document.body.style.overflow = on ? 'hidden' : '';
-  };
 
   const hdr = $('#hdr');
   function scrollToTarget(sel) {
@@ -73,7 +68,6 @@
     const href = a.getAttribute('href');
     if (!href || href.charAt(0) !== '#') return;
     e.preventDefault();
-    if (menu.classList.contains('is-open')) toggleMenu(false);
     scrollToTarget(href);
   });
 
@@ -128,21 +122,6 @@
     requestAnimationFrame(() => { onScroll(); ticking = false; });
   }, { passive: true });
   onScroll();
-
-  /* ---------- Меню ---------- */
-  const menu = $('#menu');
-  const burger = $('.burger');
-  $$('.menu__list a').forEach((a, i) => a.style.setProperty('--i', i));
-  function toggleMenu(open) {
-    menu.classList.toggle('is-open', open);
-    menu.inert = !open;
-    hdr.classList.toggle('menu-open', open);
-    burger.setAttribute('aria-expanded', String(open));
-    burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
-    lockScroll(open);
-  }
-  burger.addEventListener('click', () => toggleMenu(!menu.classList.contains('is-open')));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('is-open')) toggleMenu(false); });
 
   /* ---------- Табы планировок: индикатор-«капля» ---------- */
   $$('.tabs').forEach((list) => {
