@@ -20,9 +20,9 @@
   --red: #D10721;          /* дополнительный цвет брендбука */
   --red-deep: #A8051A;     /* наведение на красном */
   --on-red-soft: rgb(255 255 255 / .82);
-  --clay: #DBB2A1;         /* фирменный цвет дома 2 — плашки */
-  --blush: #E8D6CD;        /* фирменный цвет дома 2 — светлые фоны */
-  --clay-deep: #A86F5A;    /* тот же тон темнее: мини-знаки, наведение */
+  --clay: #DED9D5;         /* акцентный цвет (выбран клиентом 19.11) — плашки */
+  --blush: #EEEBE9;        /* тот же тон светлее — фон «Условий покупки» */
+  --clay-deep: #8A817A;    /* тот же тон темнее: мини-знаки, наведение */
   --on-clay-soft: rgb(29 29 27 / .72);
   --accent: var(--clay-deep);
   --on-dark: #FFFFFF;
@@ -235,7 +235,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 /* =====================================================================
    1. ПЕРВЫЙ ЭКРАН
    ===================================================================== */
-/* Первый экран: слева плашка с оффером (цвет дома 2 #DBB2A1),
+/* Первый экран: слева плашка с оффером (акцентный цвет --clay),
    справа рендер с башнями. Край плашки — диагональ знака, расширяется
    книзу и заходит на фото только у земли, крыши не задевает.
    Окно кадра считает main.js (fitHero): средняя и правая башни целиком,
@@ -363,20 +363,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (min-width: 900px) { .strip { padding-block: 56px 16px; } .strip__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .stat { padding-left: 24px; } }
 
 /* =====================================================================
-   3. О КВАРТАЛЕ
-   ===================================================================== */
-.about { padding-block: var(--sec) calc(var(--sec) * .6); }
-.about__lead {
-  font: 300 clamp(26px, 3vw + 12px, 62px)/1.14 var(--f-display);
-  letter-spacing: -.022em;
-  max-width: 24ch;
-}
-.motion .about__lead .w { color: #C9C9C6; }
-.about__foot { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px 48px; margin-top: clamp(32px, 4vw, 56px); }
-.about__text { max-width: 44ch; color: var(--ink-soft); font-size: 17px; }
-
-/* =====================================================================
-   4. РАСКРЫТИЕ ЧЕРЕЗ ЗНАК
+   3. О КВАРТАЛЕ — двор раскрывается через знак
    ===================================================================== */
 .reveal { position: relative; height: 180vh; background: var(--smoke); }
 .reveal__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: var(--paper); }
@@ -393,7 +380,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .reveal__scrim { position: absolute; inset: 0; background: linear-gradient(0deg, rgb(10 10 9 / .72) 0%, rgb(10 10 9 / .1) 50%, rgb(10 10 9 / 0) 72%); opacity: 0; }
 .reveal__caption { position: absolute; left: 0; right: 0; bottom: clamp(32px, 7vh, 80px); color: var(--on-dark); opacity: 0; }
 .reveal__kicker { font: 600 12px/1.6 var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-soft); margin-bottom: 14px; }
-.reveal__title { font: 300 clamp(32px, 3.6vw + 12px, 76px)/1.06 var(--f-display); letter-spacing: -.025em; max-width: 15ch; }
+.reveal__title { font: 300 clamp(30px, 3vw + 12px, 66px)/1.08 var(--f-display); letter-spacing: -.025em; max-width: 19ch; text-wrap: balance; }
+@media (max-width: 767px) { .reveal__caption { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); } }   /* над нижней панелью */
+.reveal__text { margin-top: clamp(16px, 2.4vh, 28px); max-width: 40ch; font-size: clamp(16px, .5vw + 14px, 21px); line-height: 1.5; color: var(--on-dark-soft); }
+.reveal__scrim { background: linear-gradient(0deg, rgb(10 10 9 / .8) 0%, rgb(10 10 9 / .25) 55%, rgb(10 10 9 / 0) 80%); }
 .no-motion .reveal { height: auto; }
 .no-motion .reveal__sticky { position: relative; height: 80vh; }
 .no-motion .reveal__media { -webkit-mask: none; mask: none; }
@@ -433,6 +423,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .plans__areas li { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
 .plans__areas span { color: var(--ink-soft); }
 .plans__areas b { font-weight: 500; font-variant-numeric: tabular-nums; }
+.plans__areas .plans__fin {   /* выделенная строка про отделку */
+  align-items: center; margin-top: 12px; padding: 16px 20px;
+  border: 0; border-radius: 16px; background: var(--clay); color: var(--ink);
+}
+.plans__areas .plans__fin span { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 500; }
+.plans__areas .plans__fin span::before { content: ""; width: 10px; height: 15px; background: var(--ink); -webkit-mask: var(--sign) center / contain no-repeat; mask: var(--sign) center / contain no-repeat; }
+.plans__areas .plans__fin b { font-weight: 600; text-align: right; }
 .plan-card { padding: 16px; background: var(--smoke); border-radius: var(--r-lg); }
 @media (min-width: 1024px) {
   .plans__grid { grid-template-columns: minmax(0, .85fr) minmax(0, 1fr); gap: clamp(48px, 6vw, 112px); }
@@ -456,13 +453,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .plan img { width: 100%; max-width: 480px; aspect-ratio: 1; object-fit: contain; }
 .plan figcaption { font-size: 14px; color: var(--ink-soft); }
 .plan-card__btns { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
-
-.fin { margin-top: var(--sec); }
-.fin__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px 48px; margin-bottom: 32px; }
-.fin__gallery { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(78%, 1fr); gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: var(--r); }
-.fin__gallery::-webkit-scrollbar { display: none; }
-.fin__gallery img { width: 100%; aspect-ratio: 965 / 587; object-fit: cover; border-radius: var(--r); scroll-snap-align: start; }
-@media (min-width: 900px) { .fin__gallery { grid-auto-columns: 1fr; overflow: visible; } }
 
 /* =====================================================================
    7. КВИЗ (вход в Marquiz)
@@ -622,36 +612,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (min-width: 1024px) { .rev-track { grid-auto-columns: calc((min(100vw, var(--maxw) + 2 * var(--gutter)) - 2 * var(--gutter) - 32px) / 3); } }
 
 /* =====================================================================
-   12. ФИНАЛ
-   ===================================================================== */
-.final { position: relative; overflow: hidden; background: var(--smoke); color: var(--ink); }
-.final__media { position: relative; height: 52svh; min-height: 300px; overflow: hidden; }
-.final__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
-.final__in { position: relative; z-index: 2; margin-top: -48px; padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px)); }
-.final__plaque {
-  padding: 40px 24px 36px;
-  background: var(--clay); color: var(--ink);
-  border-radius: var(--r-lg);
-  clip-path: polygon(0 0, calc(100% - 56px) 0, 100% 56px, 100% 100%, 0 100%);
-}
-.final__plaque .h2 { margin-bottom: 18px; max-width: 16ch; font-weight: 500; }
-.final__text { color: var(--on-clay-soft); max-width: 40ch; margin-bottom: 28px; }
-.final__btn { width: 100%; }
-.final__contacts { display: grid; gap: 4px; margin-top: 28px; padding-top: 22px; border-top: 1px solid rgb(29 29 27 / .18); }
-.final__contacts a { font: 400 24px/1.2 var(--f-display); }
-.final__contacts span { font-size: 14px; color: var(--on-clay-soft); }
-@media (min-width: 768px) {
-  .final { min-height: max(640px, min(100svh, 900px)); display: flex; align-items: center; }
-  .final__media { position: absolute; inset: 0; height: auto; }
-  .final__in { margin: 0; padding-block: 96px; }
-  .final__plaque {
-    width: min(100%, 580px); padding: 52px 48px 44px;
-    clip-path: polygon(0 0, calc(100% - 96px) 0, 100% 96px, 100% 100%, 0 100%);
-  }
-  .final__btn { width: auto; }
-}
-
-/* =====================================================================
    ФУТЕР
    ===================================================================== */
 .ftr { padding-block: 64px calc(110px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--on-dark-soft); font-size: 14px; }
@@ -680,7 +640,17 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .mbar.is-shown { transform: none; }
 .mbar__tel { display: grid; place-items: center; width: 56px; height: 56px; flex: none; border: 1px solid var(--ink); border-radius: 50%; }
 .mbar__btn { flex: 1; }
-@media (min-width: 768px) { .mbar { display: none; } }
+.mbar__btn .ico { display: none; }
+@media (min-width: 768px) {   /* компьютер и планшет: одна кнопка в правом нижнем углу */
+  .mbar {
+    left: auto; right: max(var(--gutter), env(safe-area-inset-right, 0px)); bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    padding: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none;
+    transform: translateY(calc(100% + 40px));
+  }
+  .mbar__tel { display: none; }
+  .mbar__btn { flex: none; min-height: 60px; padding: 0 30px; font-size: 17px; box-shadow: 0 10px 30px rgb(17 17 16 / .28); }
+  .mbar__btn .ico { display: block; }
+}
 
 /* Cookie */
 .cookie {

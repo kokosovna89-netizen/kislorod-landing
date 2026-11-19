@@ -80,13 +80,11 @@
   /* ---------- Шапка и нижняя панель ---------- */
   const hero = $('.hero');
   const mbar = $('#mbar');
-  let lastY = window.scrollY, finalInView = false;
+  let lastY = window.scrollY;
   const heroMedia = $('.hero__media');
+  const heroBtns = $('.hero__btns');
   let heroH = hero.offsetHeight, mediaH = heroMedia.offsetHeight;
   window.addEventListener('resize', () => { heroH = hero.offsetHeight; mediaH = heroMedia.offsetHeight; }, { passive: true });
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(([en]) => { finalInView = en.isIntersecting; onScroll(); }, { threshold: 0.2 }).observe($('.final'));
-  }
 
   /* ---------- Кадр первого экрана: башни целиком и с воздухом ----------
      hero-air.jpg собран из дневного рендера: слева дерево и небо (0–0.18),
@@ -119,7 +117,8 @@
     hdr.classList.toggle('is-solid', y > mediaH - hdr.offsetHeight - 10);
     if (y > heroEnd && y > lastY + 4) hdr.classList.add('is-hidden');
     else if (y < lastY - 4 || y <= heroEnd) hdr.classList.remove('is-hidden');
-    mbar.classList.toggle('is-shown', y > heroH * 0.7 && !finalInView);
+    // липкая кнопка квиза появляется, как только кнопки первого экрана ушли из виду
+    mbar.classList.toggle('is-shown', heroBtns.getBoundingClientRect().bottom < 0);
     lastY = y;
   }
   let ticking = false;
@@ -382,16 +381,6 @@
     });
 
     await tick();
-    /* О квартале: слова проявляются по мере чтения */
-    const lead = $('.about__lead');
-    if (lead) {
-      gsap.to(splitWords(lead), {
-        color: (i) => (i === 0 ? '#A86F5A' : '#1D1D1B'), ease: 'none', stagger: 0.06,
-        scrollTrigger: { trigger: lead, start: 'top 82%', end: 'bottom 46%', scrub: true },
-      });
-    }
-
-    await tick();
     /* Главная сцена: двор раскрывается через знак Партикл */
     const reveal = $('.reveal');
     if (reveal) {
@@ -449,17 +438,9 @@
     /* Отзывы въезжают волной */
     gsap.from('.rev', { x: 90, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: 0.08, scrollTrigger: { trigger: '.rev-track', start: 'top 85%', once: true } });
 
-    await tick();
-    /* Финал: фото раскрывается, плашка поднимается, футер гасит фото */
-    gsap.fromTo('.final__media img', { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.final', start: 'top bottom', end: 'top top', scrub: true } });
-    mm.add('(min-width: 768px)', () => {
-      gsap.fromTo('.final__plaque', { y: 120, opacity: 0 }, { y: 0, opacity: 1, ease: 'none', scrollTrigger: { trigger: '.final', start: 'top 70%', end: 'top 10%', scrub: true } });
-    });
-    gsap.to('.final__media', { opacity: 0.35, ease: 'none', scrollTrigger: { trigger: '.ftr', start: 'top bottom', end: 'top 30%', scrub: true } });
-
     /* Магнитные кнопки */
     if (FINE) {
-      $$('.hero__btns .btn, .terms__cta, .hdr__cta, .final__btn').forEach((b) => {
+      $$('.hero__btns .btn, .terms__cta, .hdr__cta').forEach((b) => {
         const xTo = gsap.quickTo(b, 'x', { duration: 0.6, ease: 'power3.out' });
         const yTo = gsap.quickTo(b, 'y', { duration: 0.6, ease: 'power3.out' });
         b.addEventListener('pointermove', (e) => {
