@@ -383,13 +383,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .plans__areas li { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
 .plans__areas span { color: var(--ink-soft); }
 .plans__areas b { font-weight: 500; font-variant-numeric: tabular-nums; }
-.plans__areas .plans__fin {   /* выделенная строка про отделку */
-  align-items: center; margin-top: 12px; padding: 16px 20px;
+.plans__areas .plans__fin {   /* выделенная плашка про отделку: подпись сверху, текст крупно, срезанный угол — диагональ знака */
+  flex-direction: column; justify-content: flex-start; gap: 6px;
+  margin-top: 16px; padding: 18px 56px 20px 22px;
   border: 0; border-radius: 16px; background: var(--clay); color: var(--ink);
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
 }
-.plans__areas .plans__fin span { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 500; }
-.plans__areas .plans__fin span::before { content: ""; width: 10px; height: 15px; background: var(--ink); -webkit-mask: var(--sign) center / contain no-repeat; mask: var(--sign) center / contain no-repeat; }
-.plans__areas .plans__fin b { font-weight: 600; text-align: right; }
+.plans__areas .plans__fin span {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 12px/1.6 var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: var(--on-clay-soft);
+}
+.plans__areas .plans__fin span::before { content: ""; width: 8px; height: 12px; background: var(--ink); -webkit-mask: var(--sign) center / contain no-repeat; mask: var(--sign) center / contain no-repeat; }
+.plans__areas .plans__fin b { font: 400 clamp(20px, .6vw + 16px, 26px)/1.2 var(--f-display); letter-spacing: -.01em; text-wrap: balance; }
 .plan-card { padding: 16px; background: var(--smoke); border-radius: var(--r-lg); }
 @media (min-width: 1024px) {
   .plans__grid { grid-template-columns: minmax(0, .85fr) minmax(0, 1fr); gap: clamp(48px, 6vw, 112px); }
