@@ -638,7 +638,7 @@ html:has(.legal-dialog[open]) { overflow: hidden; }
 }
 .legal-dialog__body p + p { margin-top: 1em; }
 .ftr__legal { display: grid; gap: 10px; padding-block: 32px; font-size: 12px; line-height: 1.55; color: rgb(255 255 255 / .5); max-width: 110ch; }
-.ftr__credit-notice { font-size: 16px; }
+.ftr__credit-notice { font-size: 32px; }
 .ftr__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; }
 .ftr__bottom a:hover { color: var(--on-dark); }
 @media (min-width: 900px) { .ftr { padding-bottom: 48px; } .ftr__top { grid-template-columns: 1.3fr 1fr 1fr; } }
