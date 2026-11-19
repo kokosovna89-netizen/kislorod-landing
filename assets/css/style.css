@@ -589,6 +589,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .ftr__h { color: var(--on-dark); font-weight: 600; margin-bottom: 4px; }
 .ftr__tel { font: 400 24px/1.2 var(--f-display); color: var(--on-dark); }
 .ftr__legal { display: grid; gap: 10px; padding-block: 32px; font-size: 12px; line-height: 1.55; color: rgb(255 255 255 / .5); max-width: 110ch; }
+.ftr__credit-notice { font-size: 16px; }
 .ftr__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; }
 .ftr__bottom a:hover { color: var(--on-dark); }
 @media (min-width: 900px) { .ftr { padding-bottom: 48px; } .ftr__top { grid-template-columns: 1.3fr 1fr 1fr; } }
